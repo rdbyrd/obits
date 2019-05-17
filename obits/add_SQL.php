@@ -24,11 +24,11 @@ $survivedBy = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INP
 $other = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Other', FILTER_SANITIZE_STRING)))));
 $obitSource = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'ObitSource', FILTER_SANITIZE_STRING)))));
 $sourceDate = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'SourceDate', FILTER_SANITIZE_STRING)))));
-$cemetary = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Cemetary', FILTER_SANITIZE_STRING)))));
+$cemetery = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Cemetery', FILTER_SANITIZE_STRING)))));
 
 //insertion statements for the database. The question ? marks specify parameters.
-$query = "INSERT INTO files (Last, First, Middle, Maiden, DeathDate,
-        BirthDate, Spouse, SurvivedBy, Other, ObitSource, SourceDate, Cemetary) VALUES (?, ?, ?, ?, ?,
+$query = "INSERT INTO records (Last, First, Middle, Maiden, DeathDate,
+        BirthDate, Spouse, SurvivedBy, Other, ObitSource, SourceDate, Cemetery) VALUES (?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?)";
 
 //initiate prepared statement to (hopefully) prevent SQL injection.
@@ -36,7 +36,7 @@ if ($statement = $db->prepare($query)) {
 
 
 //restrict paramaters to string datatypes only for each column insertion.
-    $statement->bind_param("ssssddssssss", $last, $first, $middle, $maiden, $deathDate, $birthDate, $spouse, $survivedBy, $other, $obitSource, $sourceDate, $cemetary);
+    $statement->bind_param("ssssddssssss", $last, $first, $middle, $maiden, $deathDate, $birthDate, $spouse, $survivedBy, $other, $obitSource, $sourceDate, $cemetery);
 } else {
 
     //check if an error exists in a column for the database

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * display_file.php
  * display the details of a record
@@ -30,7 +29,6 @@ $row_count = mysqli_num_rows($result);
 <!--Jumbotron identifying what the page is-->
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1>Local History Obituaries</h1>
         <h2>Record Details</h2>
     </div>
 </div>
@@ -43,71 +41,35 @@ for ($i = 0; $i < $row_count; $i++) :
 
     <div class="container">
 
-        <h2><?php echo $data['filename']; ?></h2>
+        <h3><?php echo $data['First'] . " " . $data['Middle'] . " " . $data['Last']; ?></h3>
 
         <br/>
 
-        <p>Alias/Other Names: <b><?php echo $data['alias']; ?></b></p>
-
         <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th>Category/
-                        <br/>Subcategory</th>
-                    <th>Additional Information</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b><?php echo $data['category']; ?></b></td>
-                    <td>Related Resources: <b><?php echo $data['related']; ?></b></td>
-
-                </tr>
-                <tr>
-                    <td><b><?php echo $data['subcategory']; ?></b></td>
-                    <td>Keywords: <b><?php echo $data['keywords']; ?></b></td>
-
-                </tr>
-            </tbody>
-        </table>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th>Vertical File Location</th>
-                    <th>Location Related to the File</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b><?php echo $data['file_location']; ?></b></td>
-                    <td>City: <b><?php echo $data['city']; ?></b></td>
-                    <td>County: <b><?php echo $data['county']; ?></b></td>
-                </tr>
-                <tr>
-                </tr>
-                <tr/>
-            <td></td>
-            <td>Township: <b><?php echo $data['township']; ?></b></td>
-            <td>State: <b><?php echo $data['state']; ?></b></td>
-
-            </tbody>
+            <tr><td>Maiden Name: <b><?php echo $data['Maiden']; ?></b></td></tr>
+            <tr><td>Death Date: <b><?php echo $data['DeathDate']; ?></b></td></tr>
+            <tr><td>Birth Date: <b><?php echo $data['BirthDate']; ?></b></td></tr>
+            <tr><td>Spouse: <b><?php echo $data['Spouse']; ?></b></td></tr>
+            <tr><td>Survived By: <b><?php echo $data['SurvivedBy']; ?></b></td></tr>
+            <tr><td>Other: <b><?php echo $data['Other']; ?></b></td></tr>
+            <tr><td>Obituary Source: <b><?php echo $data['ObitSource']; ?></b></td></tr>
+            <tr><td>Source Date: <b><?php echo $data['SourceDate']; ?></b></td></tr>
+            <tr><td>Cemetery: <b><?php echo $data['Cemetery']; ?></b></td></tr>
         </table>
 
-        <!--Access the edit button. Sends to edit_file.php and div tags align right.-->
         <?php
         //this isset checks if a role is assigned. If it is, then it permits the edit button to appear.
         //Otherwise, the user sees nothing.
         if (isset($_SESSION['role']) == 2) {
             echo "<div id='outer'>";
-            echo "<div class='inner'> <a class='btn btn-info' href=edit_file.php?id=", $data['id'], ">Edit</a></div>";
+            echo "<div class='inner'> <a class='btn btn-info' href=edit_file.php?id=", $data['ID'], ">Edit</a></div>";
             ?>
             <!--delete button-->
             <form action = "delete_SQL.php" class="inner inlineBtnRight" method = "post" onsubmit = "return confirm('Confirm you wish to delete this record.')" >
                 <input type = "submit" class = 'btn btn-danger' value = "Delete" >
                 &nbsp;
                 &nbsp;
-                <input type = "hidden" name = "id" value = "<?php echo $data['id'] ?>">
+                <input type = "hidden" name = "ID" value = "<?php echo $data['ID'] ?>">
             </form>
 
             <?php
@@ -116,6 +78,7 @@ for ($i = 0; $i < $row_count; $i++) :
         ?>
 
     </div>
+        <!--Access the edit button. Sends to edit_file.php and div tags align right.-->
 
 
     <?php

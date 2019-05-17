@@ -15,7 +15,7 @@ if (($_SESSION['role']) == null) {
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 //define the select statement
-$sql = "SELECT * FROM files WHERE id=$id";
+$sql = "SELECT * FROM records WHERE id=$id";
 
 //execute the query
 $query = $db->query($sql);
@@ -28,81 +28,80 @@ if (!$query) {
 }
 ?>
 
-<div class="jumbotron jumbotron-fluid">
+<br/>
+<!--<div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1>Local History Obituaries</h1>
-        <h2>Edit Record</h2>
+        <h4>Edit Record</h4>
     </div>
-</div>
+</div>-->
 
 <div class="container">
-
+    <h2>Edit Record</h2>
+    <br/>
     <form action="edit_SQL.php" method="post">
-        <h3>Core Information</h3>
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="filename">File Name</label>
-                <input type="text" name="filename" class="form-control" value="<?php echo $data['filename'] ?>" autofocus required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="subject">Category</label>
-                <input type="text" name="category" class="form-control" value="<?php echo $data['category'] ?>" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="subcategory">Sub-category</label>
-                <input type="text" name="subcategory" class="form-control" value="<?php echo $data['subcategory'] ?>">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="file_location">File Drawer Location</label>
-                <input type="text" name="file_location" class="form-control" value="<?php echo $data['file_location'] ?>" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="state">State:</label>
-                <input type="text" class="form-control" id="state" name="state" value="<?php echo $data['state'] ?>" required>
-            </div>
+        <!--<div class="form-row">-->
+        <div class="form-group">
+            <input type="text" name="Last" class="form-control" placeholder="Last Name" value="<?php echo $data['Last'] ?>" autofocus required>
         </div>
-        <hr/>
-        <br/>
-        <h3>Additional Information</h3>
-        <div class="form-row">
-
-            <div class="form-group col-md-4">
-                <label for="alias">Keywords</label>
-                <input type="text" name="keywords" class="form-control" value="<?php echo $data['keywords'] ?>">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="related files">Related Resources</label>
-                <input type="text" name="related" class="form-control" value="<?php echo $data['related'] ?>">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="alias">Alias/Other Names</label>
-                <input type="text" name="alias" class="form-control" value="<?php echo $data['alias'] ?>">
-            </div>
-
+        <div class="form-group">
+            <input type="text" name="First" class="form-control" placeholder="First Name" value="<?php echo $data['First'] ?>">
         </div>
-        <div class="form-row">
-
-            <div class="form-group col-md-4">
-                <label for="county">County:</label>
-                <input type="text" class="form-control" id="county" name="county" value="<?php echo $data['county'] ?>">
-            </div>
-
-            <div class="form-group col-md-4">
-                <label for="township">Township</label>
-                <input type="text" name="township" class="form-control" value="<?php echo $data['township'] ?>">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="city">City</label>
-                <input type="text" name="city" class="form-control" value="<?php echo $data['city'] ?>">
-            </div>
+        <div class="form-group">
+            <input type="text" name="Middle" class="form-control" placeholder="Middle Name" value="<?php echo $data['Middle'] ?>">
+        </div>
+        <div class="form-group">
+            <input type="text" name="Maiden" class="form-control" placeholder="Maiden Name" value="<?php echo $data['Maiden'] ?>">
+        </div>
+        <div class="form-group">
+            <input type="date" name="DeathDate" class="form-control" placeholder="Death Date" value="<?php echo $data['DeathDate'] ?>">
+        </div>
+        <div class="form-group">
+            <input type="date" name="BirthDate" class="form-control" placeholder="BirthDate" value="<?php echo $data['BirthDate'] ?>">
+        </div>
+        <div class="form-group">
+            <input type="text" name="Spouse" class="form-control" placeholder="Spouse" value="<?php echo $data['Spouse'] ?>">
+        </div>
+        <div class="form-group">
+            <input type="text" name="Other" class="form-control" placeholder="Other" value="<?php echo $data['Other'] ?>">
+        </div>
+        <div class="form-group">
+            <input type="text" name="ObitSource" class="form-control" placeholder="Obituary Source" value="<?php echo $data['ObitSource'] ?>">
+        </div>
+        <div class="form-group">
+            <input type="text" name="SourceDate" class="form-control" placeholder="Source Date" value="<?php echo $data['SourceDate'] ?>">
+        </div>
+        <div class="form-group">
+            <input type="text" name="Cemetery" class="form-control" placeholder="Cemetery" value="<?php echo $data['Cemetery'] ?>">
         </div>
 
-        
+
 
         <!--hidden field to pass the primary key integer of the file for updates-->
-        <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+        <input type="hidden" name="ID" value="<?php echo $id; ?>"/>
         <button type="submit" class="btn btn-success btn-lg btn-block">Update</button> <br/>
+        <a class='btn btn-info btn-lg btn-block' data-target="#myModal" data-toggle="modal" href=display_file.php?id=<?= $id ?> >Cancel</a>
+
+        <!--modal pop-up window to prevent users from accidentally canceling-->
+
+        <div id="myModal" class="modal fade" data-backdrop="static" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Cancel updates to prevent accidental changes.</p>
+                        <p class="text-secondary"><small>If you selected cancel by mistake, press the X in the top-right corner of this window to continue making edits before you update.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <a class='btn btn-info' href=display_file.php?id="<?= $id; ?>" >Leave</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </form>
 </div>
 

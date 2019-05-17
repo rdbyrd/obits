@@ -63,7 +63,7 @@ require_once 'includes/database.php';
             while ($row = mysqli_fetch_assoc($result)) {
 // set up a row for each record
                 echo "<tr>";
-                echo "<td><b><a href='display_file.php?id=" . $row['id'] . "'</a>" . $row['Last'] . "</b></td>";
+                echo "<td><b><a href='display_file.php?id=" . $row['ID'] . "'</a>" . $row['Last'] . "</b></td>";
                 echo "<td>" . $row['First'] . "</td>";
                 echo "<td>" . $row['Middle'] . "</td>";
                 echo "<td>" . $row['Maiden'] . "</td>";
