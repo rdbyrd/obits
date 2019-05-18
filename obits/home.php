@@ -5,8 +5,8 @@ require_once 'includes/header.php';
 <!--Jumbotron identifying what the page is-->
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1>Lawrenceburg Public Library</h1> 
-            <h2>Local History Obituaries</h2>
+        <h1>Lawrenceburg Public Library District</h1> 
+            <h2>Obituaries</h2>
     </div>
 </div>
 

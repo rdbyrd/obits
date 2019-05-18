@@ -36,42 +36,62 @@ if (!$query) {
 </div>-->
 
 <div class="container">
-    <h2>Edit Record</h2>
-    <br/>
     <form action="edit_SQL.php" method="post">
 
-        <!--<div class="form-row">-->
-        <div class="form-group">
-            <input type="text" name="Last" class="form-control" placeholder="Last Name" value="<?php echo $data['Last'] ?>" autofocus required>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                Last Name
+                <input type="text" name="Last" class="form-control" placeholder="Last Name" value="<?php echo $data['Last'] ?>" autofocus required>
+            </div>
+            <div class="form-group col-md-3">
+                First Name
+                <input type="text" name="First" class="form-control" placeholder="First Name" value="<?php echo $data['First'] ?>">
+            </div>
+<!--        </div>  
+
+        <div class="form-row">-->
+            <div class="form-group col-md-3">
+            Middle Name
+                <input type="text" name="Middle" class="form-control" placeholder="Middle Name" value="<?php echo $data['Middle'] ?>">
+            </div>
+            <div class="form-group col-md-3">
+            Maiden Name
+                <input type="text" name="Maiden" class="form-control" placeholder="Maiden Name" value="<?php echo $data['Maiden'] ?>">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                Death Date
+                <input type="date" name="DeathDate" class="form-control" placeholder="Death Date" value="<?php echo $data['DeathDate'] ?>">
+            </div>
+            <div class="form-group col-md-6">
+                Birth Date
+                <input type="date" name="BirthDate" class="form-control" placeholder="BirthDate" value="<?php echo $data['BirthDate'] ?>">
+            </div>
         </div>
         <div class="form-group">
-            <input type="text" name="First" class="form-control" placeholder="First Name" value="<?php echo $data['First'] ?>">
-        </div>
-        <div class="form-group">
-            <input type="text" name="Middle" class="form-control" placeholder="Middle Name" value="<?php echo $data['Middle'] ?>">
-        </div>
-        <div class="form-group">
-            <input type="text" name="Maiden" class="form-control" placeholder="Maiden Name" value="<?php echo $data['Maiden'] ?>">
-        </div>
-        <div class="form-group">
-            <input type="date" name="DeathDate" class="form-control" placeholder="Death Date" value="<?php echo $data['DeathDate'] ?>">
-        </div>
-        <div class="form-group">
-            <input type="date" name="BirthDate" class="form-control" placeholder="BirthDate" value="<?php echo $data['BirthDate'] ?>">
-        </div>
-        <div class="form-group">
+            Spouse
             <input type="text" name="Spouse" class="form-control" placeholder="Spouse" value="<?php echo $data['Spouse'] ?>">
         </div>
         <div class="form-group">
-            <input type="text" name="Other" class="form-control" placeholder="Other" value="<?php echo $data['Other'] ?>">
+            Survived By
+            <input type="text" name="SurvivedBy" class="form-control" placeholder="SurvivedBy" value="<?php echo $data['SurvivedBy'] ?>">
         </div>
         <div class="form-group">
-            <input type="text" name="ObitSource" class="form-control" placeholder="Obituary Source" value="<?php echo $data['ObitSource'] ?>">
+            Other
+            <textarea type="text" name="Other" class="form-control" placeholder="Other"> <?php echo $data['Other'] ?></textarea>
         </div>
         <div class="form-group">
+            Obituary Source
+            <textarea type="text" name="ObitSource" class="form-control" rows="3" placeholder="Obituary Source"><?php echo $data['ObitSource'] ?></textarea>
+        </div>
+        <div class="form-group">
+            Source Date
             <input type="text" name="SourceDate" class="form-control" placeholder="Source Date" value="<?php echo $data['SourceDate'] ?>">
         </div>
         <div class="form-group">
+            Cemetery
             <input type="text" name="Cemetery" class="form-control" placeholder="Cemetery" value="<?php echo $data['Cemetery'] ?>">
         </div>
 

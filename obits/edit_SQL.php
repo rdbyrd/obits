@@ -11,31 +11,35 @@
 require_once 'includes/database.php';
 
 //send the hidden post id field to the database so that edited information form edit_file.php can be processed.
-$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+$id = filter_input(INPUT_POST, 'ID', FILTER_SANITIZE_NUMBER_INT);
 
-//reconfirm all file manipulation, saving it to the database as though every form insertion were a new input. Makes new inputs work. 
-$filename = mysqli_real_escape_string($db, trim(stripslashes(filter_input(INPUT_POST, 'filename', FILTER_SANITIZE_STRING))));
-$category = mysqli_real_escape_string($db, trim(stripslashes(filter_input(INPUT_POST, 'category', FILTER_SANITIZE_STRING))));
-$subcategory = mysqli_real_escape_string($db, trim(stripslashes(filter_input(INPUT_POST, 'subcategory', FILTER_SANITIZE_STRING))));
-$file_location = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'file_location', FILTER_SANITIZE_STRING)))));
-$state = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'state', FILTER_SANITIZE_STRING)))));
-$county = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'county', FILTER_SANITIZE_STRING)))));
-$township = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'township', FILTER_SANITIZE_STRING)))));
-$city = mysqli_real_escape_string($db, (stripslashes(filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING))));
-$related = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'related', FILTER_SANITIZE_STRING)))));
-$alias = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'alias', FILTER_SANITIZE_STRING)))));
-$keywords = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'keywords', FILTER_SANITIZE_STRING)))));
+//resubmit old data alongside the new during an update. Wiping input from forms that had already been there will lose that information
+$last = mysqli_real_escape_string($db, trim(stripslashes(filter_input(INPUT_POST, 'Last', FILTER_SANITIZE_STRING))));
+$first = mysqli_real_escape_string($db, trim(stripslashes(filter_input(INPUT_POST, 'First', FILTER_SANITIZE_STRING))));
+$middle = mysqli_real_escape_string($db, trim(stripslashes(filter_input(INPUT_POST, 'Middle', FILTER_SANITIZE_STRING))));
+$maiden = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Maiden', FILTER_SANITIZE_STRING)))));
+$deathDate = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'DeathDate', FILTER_SANITIZE_STRING)))));
+$birthDate = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'BirthDate', FILTER_SANITIZE_STRING)))));
+$spouse = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Spouse', FILTER_SANITIZE_STRING)))));
+$survivedBy = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'SurvivedBy', FILTER_SANITIZE_STRING)))));
+$other = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Other', FILTER_SANITIZE_STRING)))));
+$obitSource = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'ObitSource', FILTER_SANITIZE_STRING)))));
+$sourceDate = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'SourceDate', FILTER_SANITIZE_STRING)))));
+$cemetery = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Cemetery', FILTER_SANITIZE_STRING)))));
 
 //this is the SQL command used to update data submitted in the edit form.
-$sql = "UPDATE files SET filename ='$filename',
-        category = '$category', 
-        subcategory='$subcategory', 
-        file_location='$file_location', 
-        state='$state', county='$county', 
-        township='$township', 
-        city='$city', 
-        alias='$alias', related='$related',
-        keywords='$keywords'
+$sql = "UPDATE records SET Last ='$last',
+        First='$first', 
+        Middle='$middle', 
+        Maiden='$maiden', 
+        DeathDate='$deathDate',
+        BirthDate='$birthDate', 
+        Spouse='$spouse', 
+        SurvivedBy='$survivedBy',
+        Other='$other',
+        ObitSource='$obitSource',
+        SourceDate='$sourceDate',
+        Cemetery='$cemetery'
         WHERE id='$id'";
 
 //execute the insert query
@@ -53,4 +57,4 @@ if (!$query) {
 
 $db->close();
 
-header("Location: index_all_records.php");
+header("Location: display_file.php?id=$id");
