@@ -13,7 +13,7 @@ error_reporting(0);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Local History</title>
+        <title>LPLD Obituaries</title>
         <meta charset="utf-8">
 
         <!--Bootstrap CDN and code for mobile and desktop compatibility.-->
