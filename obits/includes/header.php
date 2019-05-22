@@ -6,6 +6,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+print_r($_SESSION);
+
 error_reporting(0);
 @ini_set('display_errors', 0);
 ?>
@@ -18,10 +20,12 @@ error_reporting(0);
 
         <!--Bootstrap CDN and code for mobile and desktop compatibility.-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+        <!--Updated Bootstrap files-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
         <!--My CSS-->
         <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -42,6 +46,7 @@ error_reporting(0);
                     </li>
 
                     <?php
+
 //allow tables who are logged in to add and make changes to records in the table
                     if (isset($_SESSION['role']) == 2) {
                         ?>
@@ -52,17 +57,16 @@ error_reporting(0);
                         <?php
                     }
 //give permission to view user accounts IF the use is an administrator
-                        if (isset($_SESSION['role']) && $_SESSION['role'] == 2) {
-                     ?>
-                            <li class = "nav-item form-inline">
+                    if (isset($_SESSION['role']) && $_SESSION['role'] == 2) {
+                        ?>
+                        <li class = "nav-item form-inline">
                             <a class = "nav-link" href = "account_list.php">Account List</a>
-                            </li>
-                            <li class = "nav-item form-inline">
+                        </li>
+                        <li class = "nav-item form-inline">
                             <a class = "nav-link" href = "account_create.php">Add Account</a>
-                            </li>
-                            <?php
-                        }
-                    
+                        </li>
+                        <?php
+                    }
                     ?>
                 </ul>
 

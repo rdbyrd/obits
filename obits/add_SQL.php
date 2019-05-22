@@ -23,20 +23,19 @@ $spouse = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_P
 $survivedBy = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'SurvivedBy', FILTER_SANITIZE_STRING)))));
 $other = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Other', FILTER_SANITIZE_STRING)))));
 $obitSource = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'ObitSource', FILTER_SANITIZE_STRING)))));
-$sourceDate = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'SourceDate', FILTER_SANITIZE_STRING)))));
 $cemetery = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Cemetery', FILTER_SANITIZE_STRING)))));
 
 //insertion statements for the database. The question ? marks specify parameters.
 $query = "INSERT INTO records (Last, First, Middle, Maiden, DeathDate,
-        BirthDate, Spouse, SurvivedBy, Other, ObitSource, SourceDate, Cemetery) VALUES (?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?)";
+        BirthDate, Spouse, SurvivedBy, Other, Cemetery, ObitSource) VALUES (?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?)";
 
 //initiate prepared statement to (hopefully) prevent SQL injection.
 if ($statement = $db->prepare($query)) {
 
 
 //restrict paramaters to string datatypes only for each column insertion.
-    $statement->bind_param("ssssddssssss", $last, $first, $middle, $maiden, $deathDate, $birthDate, $spouse, $survivedBy, $other, $obitSource, $sourceDate, $cemetery);
+    $statement->bind_param("ssssddsssss", $last, $first, $middle, $maiden, $deathDate, $birthDate, $spouse, $survivedBy, $other, $cemetery, $obitSource);
 } else {
 
     //check if an error exists in a column for the database

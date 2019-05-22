@@ -52,9 +52,8 @@ for ($i = 0; $i < $row_count; $i++) :
             <tr><td>Spouse: <b><?php echo $data['Spouse']; ?></b></td></tr>
             <tr><td>Survived By: <b><?php echo $data['SurvivedBy']; ?></b></td></tr>
             <tr><td>Other: <b><?php echo $data['Other']; ?></b></td></tr>
-            <tr><td>Obituary Source: <b><?php echo $data['ObitSource']; ?></b></td></tr>
-            <tr><td>Source Date: <b><?php echo $data['SourceDate']; ?></b></td></tr>
             <tr><td>Cemetery: <b><?php echo $data['Cemetery']; ?></b></td></tr>
+            <tr><td>Obituary Source: <b><?php echo $data['ObitSource']; ?></b></td></tr>
         </table>
 
         <?php

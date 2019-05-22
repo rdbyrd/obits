@@ -61,16 +61,12 @@ if (($_SESSION['role']) == null) {
             <textarea type="text" name="Other" class="form-control" rows="2" placeholder="Other"></textarea>
         </div>
         <div class="form-group">
-            Obituary Source
-            <textarea type="text" name="ObitSource" class="form-control" rows="2" placeholder="Obituary Source"></textarea>
-        </div>
-        <div class="form-group">
-            Source Date
-            <input type="text" name="SourceDate" class="form-control" placeholder="Source Date">
-        </div>
-        <div class="form-group">
             Cemetery
             <input type="text" name="Cemetery" class="form-control" placeholder="Cemetery">
+        </div>
+        <div class="form-group">
+            Obituary Source
+            <textarea type="text" name="ObitSource" class="form-control" rows="2" placeholder="Obituary Source"></textarea>
         </div>
 
         <button type="submit" class="btn btn-success btn-lg btn-block">Create</button> 

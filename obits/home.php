@@ -1,5 +1,6 @@
 <?php
 require_once 'includes/header.php';
+
 ?>
 
 <!--Jumbotron identifying what the page is-->
@@ -15,7 +16,7 @@ require_once 'includes/header.php';
     <h3>Search for Obituaries:</h3><br/>
 
     <!--Search feature-->
-    <form action="search_results.php" method="post" class="form-inline">
+    <form action="search_results.php" method="get" class="form-inline">
         <input class="form-control mr-sm-3" type="search" name="Last" placeholder="Search by Last Name" aria-label="Search">
         <input class="form-control mr-sm-3" type="search" name="First" placeholder="Search by First Name" aria-label="Search">
 <!--        <input class="form-control mr-sm-3" type="search" name="Middle" placeholder="Search by Middle Name" aria-label="Search">

@@ -23,9 +23,8 @@ $birthDate = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPU
 $spouse = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Spouse', FILTER_SANITIZE_STRING)))));
 $survivedBy = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'SurvivedBy', FILTER_SANITIZE_STRING)))));
 $other = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Other', FILTER_SANITIZE_STRING)))));
-$obitSource = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'ObitSource', FILTER_SANITIZE_STRING)))));
-$sourceDate = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'SourceDate', FILTER_SANITIZE_STRING)))));
 $cemetery = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'Cemetery', FILTER_SANITIZE_STRING)))));
+$obitSource = mysqli_real_escape_string($db, (trim(stripslashes(filter_input(INPUT_POST, 'ObitSource', FILTER_SANITIZE_STRING)))));
 
 //this is the SQL command used to update data submitted in the edit form.
 $sql = "UPDATE records SET Last ='$last',
@@ -38,7 +37,6 @@ $sql = "UPDATE records SET Last ='$last',
         SurvivedBy='$survivedBy',
         Other='$other',
         ObitSource='$obitSource',
-        SourceDate='$sourceDate',
         Cemetery='$cemetery'
         WHERE id='$id'";
 

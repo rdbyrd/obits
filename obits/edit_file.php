@@ -76,23 +76,19 @@ if (!$query) {
         </div>
         <div class="form-group">
             Survived By
-            <input type="text" name="SurvivedBy" class="form-control" placeholder="SurvivedBy" value="<?php echo $data['SurvivedBy'] ?>">
+            <textarea type="text" name="SurvivedBy" class="form-control" placeholder="SurvivedBy" rows="2"><?php echo $data['SurvivedBy'] ?></textarea>
         </div>
         <div class="form-group">
             Other
             <textarea type="text" name="Other" class="form-control" placeholder="Other"> <?php echo $data['Other'] ?></textarea>
         </div>
         <div class="form-group">
-            Obituary Source
-            <textarea type="text" name="ObitSource" class="form-control" rows="3" placeholder="Obituary Source"><?php echo $data['ObitSource'] ?></textarea>
-        </div>
-        <div class="form-group">
-            Source Date
-            <input type="text" name="SourceDate" class="form-control" placeholder="Source Date" value="<?php echo $data['SourceDate'] ?>">
-        </div>
-        <div class="form-group">
             Cemetery
             <input type="text" name="Cemetery" class="form-control" placeholder="Cemetery" value="<?php echo $data['Cemetery'] ?>">
+        </div>
+        <div class="form-group">
+            Obituary Source
+            <textarea type="text" name="ObitSource" class="form-control" rows="3" placeholder="Obituary Source"><?php echo $data['ObitSource'] ?></textarea>
         </div>
 
 
