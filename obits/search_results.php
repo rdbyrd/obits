@@ -1,4 +1,7 @@
 <?php
+//search_results receives input from set_search and searches the database 
+//on fixed session variables from what the user typed in
+
 require_once 'includes/header.php';
 require_once 'includes/database.php';
 ?>
@@ -13,18 +16,9 @@ require_once 'includes/database.php';
 <div class="container">
 
     <?php
-    //checks for data posted in the search form
-    if (!empty($_GET['Last'] || isset($_GET['First']))) {
-
-//prevent unwanted characters from harming the SQL database, then pass posted data as a string
-        $last = mysqli_real_escape_string($db, filter_input(INPUT_GET, 'Last', FILTER_SANITIZE_STRING));
-        $first = mysqli_real_escape_string($db, filter_input(INPUT_GET, 'First', FILTER_SANITIZE_STRING));
-
-        setcookie("Last", $last, time(), "/");
-        setcookie("First", $first, time(), "/");
-    }
-
-
+    //set session variables as regular variables to run in SQL queries below
+    $last = $_SESSION['Last'];
+    $first = $_SESSION['First'];
 
 //get current page number        
     if (isset($_GET['page_no']) && $_GET['page_no'] != "") {
@@ -66,30 +60,15 @@ require_once 'includes/database.php';
 // display records in a table
 echo "<table class='table table-hover'>";
 
-// set table headers
+//SQL query to search the session variables input by the user
 $sql = "SELECT * FROM records WHERE
       Last LIKE '$last%' && First LIKE '$first%' LIMIT $offset, $total_records_per_page";
-
-echo "Offset: " . $offset;
-echo "<br/>";
-echo "Total Records per page: " . $total_records_per_page;
-echo "<br/>";
-echo "# of pages: " . $total_no_of_pages;
-echo "<br/>";
-echo "First Name: " . $firstName;
-echo "<br/>";
-echo "Last Name: " . $lastName;
-echo "<br/>";
-echo "Page #: " . $page_no;
-echo "<br/>";
-echo "Total Records: " . $total_records;
-echo "<br/>";
-echo "Counter: " . $counter;
 
 
 //execute the search and call up all matching attributes
 $result = mysqli_query($db, $sql);
 
+//set up table headers for the user to see
 echo "<tr class='table-secondary'><th>Last Name</th><th>First Name</th><th>Middle</th>"
  . "<th>Maiden</th><th>Death Date</th><th>Birth Date</th></tr>";
 
@@ -119,87 +98,89 @@ if ($result > 0) {
     <ul class="pagination">
 
         <!--create the previous page button-->
-        <li class="page-item" <?php if ($page_no <= 1) {
+        <li class="page-item" <?php
+    if ($page_no <= 1) {
         echo "class='disabled'";
-    } ?>>
-            <a class='page-link' <?php
-    if ($page_no > 1) {
-        echo "class='page-link' href='?page_no=$previous_page'";
     }
-?>>Previous</a>
+?>>
+            <a class='page-link' <?php
+            if ($page_no > 1) {
+                echo "class='page-link' href='?page_no=$previous_page'";
+            }
+            ?>>Previous</a>
         </li>
 
 
-<?php
-if ($total_no_of_pages <= 10) {
-    for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
-        if ($counter == $page_no) {
-            echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
-        } else {
-            echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
-        }
-    }
-} elseif ($total_no_of_pages > 10) {
+        <?php
+        if ($total_no_of_pages <= 10) {
+            for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
+                if ($counter == $page_no) {
+                    echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
+                } else {
+                    echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                }
+            }
+        } elseif ($total_no_of_pages > 10) {
 
-    if ($page_no <= 4) {
-        for ($counter = 1; $counter < 8; $counter++) {
-            if ($counter == $page_no) {
-                echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
+            if ($page_no <= 4) {
+                for ($counter = 1; $counter < 8; $counter++) {
+                    if ($counter == $page_no) {
+                        echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
+                    } else {
+                        echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                    }
+                }
+                echo "<li><a>...</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=$second_last'>$second_last</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+            } elseif ($page_no > 4 && $page_no < $total_no_of_pages - 4) {
+                echo "<li class='page-item'><a class='page-link' href='?page_no=1'>1</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=2'>2</a></li>";
+                echo "<li><a>...</a></li>";
+                for (
+                $counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++
+                ) {
+                    if ($counter == $page_no) {
+                        echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
+                    } else {
+                        echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                    }
+                }
+                echo "<li><a>...</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=$second_last'>$second_last</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+            } elseif ($page_no > 4 && $page_no < $total_no_of_pages - 4) {
+                echo "<li class='page-item'><a class='page-link' href='?page_no=1'>1</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=2'>2</a></li>";
+                echo "<li><a>...</a></li>";
+                for (
+                $counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++
+                ) {
+                    if ($counter == $page_no) {
+                        echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
+                    } else {
+                        echo "<li><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                    }
+                }
+                echo "<li><a>...</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=$second_last'>$second_last</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
             } else {
-                echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=1'>1</a></li>";
+                echo "<li class='page-item'><a class='page-link' href='?page_no=2'>2</a></li>";
+                echo "<li><a>...</a></li>";
+                for (
+                $counter = $total_no_of_pages - 6; $counter <= $total_no_of_pages; $counter++
+                ) {
+                    if ($counter == $page_no) {
+                        echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
+                    } else {
+                        echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
+                    }
+                }
             }
         }
-        echo "<li><a>...</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=$second_last'>$second_last</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
-    } elseif ($page_no > 4 && $page_no < $total_no_of_pages - 4) {
-        echo "<li class='page-item'><a class='page-link' href='?page_no=1'>1</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=2'>2</a></li>";
-        echo "<li><a>...</a></li>";
-        for (
-        $counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++
-        ) {
-            if ($counter == $page_no) {
-                echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
-            } else {
-                echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
-            }
-        }
-        echo "<li><a>...</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=$second_last'>$second_last</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
-    } elseif ($page_no > 4 && $page_no < $total_no_of_pages - 4) {
-        echo "<li class='page-item'><a class='page-link' href='?page_no=1'>1</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=2'>2</a></li>";
-        echo "<li><a>...</a></li>";
-        for (
-        $counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++
-        ) {
-            if ($counter == $page_no) {
-                echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
-            } else {
-                echo "<li><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
-            }
-        }
-        echo "<li><a>...</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=$second_last'>$second_last</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
-    } else {
-        echo "<li class='page-item'><a class='page-link' href='?page_no=1'>1</a></li>";
-        echo "<li class='page-item'><a class='page-link' href='?page_no=2'>2</a></li>";
-        echo "<li><a>...</a></li>";
-        for (
-        $counter = $total_no_of_pages - 6; $counter <= $total_no_of_pages; $counter++
-        ) {
-            if ($counter == $page_no) {
-                echo "<li class='active page-item'><a class='page-link'>$counter</a></li>";
-            } else {
-                echo "<li class='page-item'><a class='page-link' href='?page_no=$counter'>$counter</a></li>";
-            }
-        }
-    }
-}
-?>
+        ?>
 
         <li class='page-item' <?php
         if ($page_no >= $total_no_of_pages) {
@@ -207,19 +188,17 @@ if ($total_no_of_pages <= 10) {
         }
         ?>>
             <a class='page-link' <?php
-        if ($page_no < $total_no_of_pages) {
-            echo "class='page-link' href='?page_no=$next_page'";
-        }
-        ?>>Next</a>
+               if ($page_no < $total_no_of_pages) {
+                   echo "class='page-link' href='?page_no=$next_page'";
+               }
+               ?>>Next</a>
         </li>
 
-               <?php
-               if ($page_no < $total_no_of_pages) {
-                   echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
-               }
-
-               echo "Counter after last button: " . $counter;
-               ?>
+        <?php
+        if ($page_no < $total_no_of_pages) {
+            echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+        }
+        ?>
     </ul>
 
 </tbody>
