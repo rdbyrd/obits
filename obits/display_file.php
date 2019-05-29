@@ -7,6 +7,15 @@
 require_once 'includes/header.php';
 require_once 'includes/database.php';
 
+//get current page number        
+    if (isset($_GET['page_no']) && $_GET['page_no'] != "") {
+        $page_no = $_GET['page_no'];
+    } else {
+        $page_no = 1;
+    }
+
+    echo $page_no;
+    
 //variable to pass a file's unique id number on a successful selection 
 //Input get method retrieves all attributes within a row of data. Sanitize to ensure it is an integer.
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -61,6 +70,7 @@ for ($i = 0; $i < $row_count; $i++) :
         //Otherwise, the user sees nothing.
         if (isset($_SESSION['role']) == 2) {
             echo "<div id='outer'>";
+            echo "<div class='inner inlineBtnMiddle'> <a class='btn btn-primary' href=search_results.php?page_no=", $_SESSION['page_no'], ">Return</a></div><br/><br/>";
             echo "<div class='inner'> <a class='btn btn-info' href=edit_file.php?id=", $data['ID'], ">Edit</a></div>";
             ?>
             <!--delete button-->
@@ -70,14 +80,12 @@ for ($i = 0; $i < $row_count; $i++) :
                 &nbsp;
                 <input type = "hidden" name = "ID" value = "<?php echo $data['ID'] ?>">
             </form>
-
             <?php
             echo "</div>";
         }
         ?>
 
     </div>
-        <!--Access the edit button. Sends to edit_file.php and div tags align right.-->
 
 
     <?php

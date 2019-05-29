@@ -26,6 +26,8 @@ require_once 'includes/database.php';
     } else {
         $page_no = 1;
     }
+    
+    $_SESSION['page_no'] = $page_no;
 
     //total number of records per page
     $total_records_per_page = 8;
@@ -194,11 +196,6 @@ if ($result > 0) {
                ?>>Next</a>
         </li>
 
-        <?php
-        if ($page_no < $total_no_of_pages) {
-            echo "<li class='page-item'><a class='page-link' href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
-        }
-        ?>
     </ul>
 
 </tbody>

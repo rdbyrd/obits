@@ -76,7 +76,7 @@ if (!$query) {
         </div>
         <div class="form-group">
             Survived By
-            <textarea type="text" name="SurvivedBy" class="form-control" placeholder="SurvivedBy" rows="2"><?php echo $data['SurvivedBy'] ?></textarea>
+            <textarea type="text" name="SurvivedBy" class="form-control" placeholder="Survived By" rows="2"><?php echo $data['SurvivedBy'] ?></textarea>
         </div>
         <div class="form-group">
             Other
@@ -112,7 +112,7 @@ if (!$query) {
                         <p class="text-secondary"><small>If you selected cancel by mistake, press the X in the top-right corner of this window to continue making edits before you update.</small></p>
                     </div>
                     <div class="modal-footer">
-                        <a class='btn btn-info' href=display_file.php?id="<?= $id; ?>" >Leave</a>
+                        <a class='btn btn-info' href=display_file.php?id="<?= $id; ?>" >Restore</a>
                     </div>
                 </div>
             </div>

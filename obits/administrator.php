@@ -14,13 +14,8 @@ require_once 'includes/database.php';
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1>Local History Obituaries</h1>
-        <h2>Administrator Controls</h2>
+        <h2>Administrator Features (Additional Links Added to the Top Row)</h2>
     </div>
-</div>
-
-<div class="container">
-    <a class='btn btn-outline-success' href='add.php'>Add Record</a><br/><br/>
-    <a class='btn btn-outline-info' href='index_all_records.php'>Edit Records</a><br/><br/>
 </div>
 
 <?php
