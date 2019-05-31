@@ -1,8 +1,14 @@
 <?php
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "host_lpld_gen";
+
+//$servername = "obits.lpld.lib.in.us";
+//$username = "ftplpld";
+//$password = "LPL@2019$$";
+//$dbname = "host_lpld_gen";
 
 ?>
 

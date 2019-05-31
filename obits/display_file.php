@@ -13,8 +13,6 @@ require_once 'includes/database.php';
     } else {
         $page_no = 1;
     }
-
-    echo $page_no;
     
 //variable to pass a file's unique id number on a successful selection 
 //Input get method retrieves all attributes within a row of data. Sanitize to ensure it is an integer.

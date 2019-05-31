@@ -6,8 +6,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-print_r($_SESSION);
-
 error_reporting(0);
 @ini_set('display_errors', 0);
 ?>

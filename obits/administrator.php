@@ -14,9 +14,15 @@ require_once 'includes/database.php';
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1>Local History Obituaries</h1>
-        <h2>Administrator Features (Additional Links Added to the Top Row)</h2>
+        <h2>Administrator Features</h2>
     </div>
+
+
 </div>
+
+    <div class="alert alert-info container" role="alert">
+        Additional links available at the top of the page.
+    </div>
 
 <?php
 require_once 'includes/footer.php';
