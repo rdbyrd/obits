@@ -4,11 +4,12 @@
 
 require_once 'includes/header.php';
 require_once 'includes/database.php';
+
+print_r($_SESSION);
 ?>
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1>Local History Obituaries</h1>
         <h2>Search Results</h2>
     </div>
 </div>
@@ -19,6 +20,16 @@ require_once 'includes/database.php';
     //set session variables as regular variables to run in SQL queries below
     $last = $_SESSION['Last'];
     $first = $_SESSION['First'];
+     $middle = $_SESSION["Middle"];
+     $maiden = $_SESSION["Maiden"];
+     $deathDate = $_SESSION["DeathDate"];
+     $birthDate = $_SESSION["BirthDate"];
+     $spouse = $_SESSION["Spouse"];
+     $survivedBy = $_SESSION["SurvivedBy"];
+     $other = $_SESSION["Other"];
+     $cemetery = $_SESSION["Cemetery"] ;
+     $obitSource = $_SESSION["ObitSource"] ;
+     $sourceDate = $_SESSION["SourceDate"];
 
 //get current page number        
     if (isset($_GET['page_no']) && $_GET['page_no'] != "") {
@@ -42,7 +53,18 @@ require_once 'includes/database.php';
 //    get the total number of pages available from setting # of records per page
     $result_count = mysqli_query(
             $db, "SELECT COUNT(*) AS total_records FROM `records` WHERE
-      Last LIKE '$last%' && First LIKE '$first%'"
+      Last LIKE '$last%' "
+            . "&& First LIKE '$first%' "
+            . "&& Middle LIKE '$middle%' "
+            . "&& Maiden LIKE '$maiden%'"
+            . "&& DeathDate LIKE '$deathDate%'"
+            . "&& BirthDate LIKE '$birthDate%'"
+            . "&& Spouse LIKE '$spouse%'"
+            . "&& SurvivedBy LIKE '$survivedBy%'"
+            . "&& Other LIKE '$other%'"
+            . "&& Cemetery LIKE '$cemetery%'"
+            . "&& ObitSource LIKE '$obitSource%'"
+            . "&& SourceDate LIKE '$sourceDate%'"
     );
 
     $total_records = mysqli_fetch_array($result_count);
@@ -63,9 +85,21 @@ require_once 'includes/database.php';
 echo "<table class='table table-hover'>";
 
 //SQL query to search the session variables input by the user
-$sql = "SELECT * FROM records WHERE
-      Last LIKE '$last%' && First LIKE '$first%' LIMIT $offset, $total_records_per_page";
-
+$sql = "SELECT * 
+        FROM records WHERE
+            Last LIKE '$last%' "
+            . "&& First LIKE '$first%' "
+            . "&& Middle LIKE '$middle%' "
+            . "&& Maiden LIKE '$maiden%'"
+            . "&& DeathDate LIKE '$deathDate%'"
+            . "&& BirthDate LIKE '$birthDate%'"
+            . "&& Spouse LIKE '$spouse%'"
+            . "&& SurvivedBy LIKE '$survivedBy%'"
+            . "&& Other LIKE '$other%'"
+            . "&& Cemetery LIKE '$cemetery%'"
+            . "&& ObitSource LIKE '$obitSource%'"
+            . "&& SourceDate LIKE '$sourceDate%'"
+        . "LIMIT $offset, $total_records_per_page";
 
 //execute the search and call up all matching attributes
 $result = mysqli_query($db, $sql);
