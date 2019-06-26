@@ -99,6 +99,7 @@ $sql = "SELECT *
             . "&& Cemetery LIKE '$cemetery%'"
             . "&& ObitSource LIKE '$obitSource%'"
             . "&& SourceDate LIKE '$sourceDate%'"
+        . "ORDER BY Last, First ASC "
         . "LIMIT $offset, $total_records_per_page";
 
 //execute the search and call up all matching attributes
